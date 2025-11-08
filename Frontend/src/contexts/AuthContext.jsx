@@ -22,22 +22,22 @@ export const AuthProvider = ({ children }) => {
 
     const router = useNavigate();
 
-    const handleRegister = async (name, username, password) => {
-        try {
-            let request = await client.post("/register", {
-                name: name,
-                username: username,
-                password: password
-            })
 
-
-            if (request.status === httpStatus.CREATED) {
-                return request.data.message;
-            }
-        } catch (err) {
-            throw err;
+const handleRegister = async (name, username, password) => {
+    try {
+        let request = await client.post("http://localhost:8000/api/v1/users/register", { 
+            name: name, 
+            username: username, 
+            password: password 
+        });
+        if (request.status === httpStatus.CREATED) {
+            return request.data.message;
         }
+    } catch (err) {
+        throw err;
     }
+}
+
 
     const handleLogin = async (username, password) => {
         try {
